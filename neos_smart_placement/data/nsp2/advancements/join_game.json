@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "join_game": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "function": "nsp2:adv/join_game"
+  }
+}

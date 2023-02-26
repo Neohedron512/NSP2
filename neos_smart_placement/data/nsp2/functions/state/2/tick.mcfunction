@@ -1,0 +1,1 @@
+execute as @e[tag=nsp2.interaction,distance=..128] if score @s nsp2.id = @p nsp2.id run tp @s ^ ^ ^.25

@@ -1,0 +1,3 @@
+execute at @e[tag=nsp2.2,distance=..128] if score @s nsp2.id = @e[distance=..0.01,limit=1] nsp2.id as @e[distance=..0.01,limit=1] at @s facing entity @e[distance=..10,tag=nsp2.1,limit=1] feet positioned ^ ^ ^-1 align xyz positioned ~.5 ~.5 ~.5 run tp @s ~ ~ ~
+execute at @e[tag=nsp2.1,distance=..128] if score @s nsp2.id = @e[distance=..0.01,limit=1] nsp2.id as @e[distance=..0.01,limit=1] at @s facing entity @e[distance=..10,tag=nsp2.2,limit=1] feet positioned ^ ^ ^1 align xyz positioned ~.5 ~.5 ~.5 run tp @s ~ ~ ~
+execute at @e[tag=nsp2.2,distance=..128] if score @s nsp2.id = @e[distance=..0.01,limit=1] nsp2.id as @e[distance=..0.01,limit=1] unless block ~ ~ ~ #nsp2:passable run function nsp2:state/break

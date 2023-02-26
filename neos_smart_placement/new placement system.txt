@@ -1,0 +1,33 @@
+new update predictive placement system
+
+Scores
+nsp2.id
+nsp2.state
+nsp2.timer
+
+organization
+each stage has functions that are called once at their start, a function that runs every tick, and instant functions that are called to either step forward or backward in the state (rise/fall)
+rise functions increase the score by 1 and call the init function of the next state if necessary
+fall functions decrease the score by 1 and call the init function of the next state if necessary
+inverted advancement system - to prevent unnecessary advancements from making checks constantly, most will remain granted until needed, at which point they are revoked.
+
+Order of operations
+
+TICK
+Decrease players with a timer score by 1
+
+1. [ADV] we detect placing a block, and run our respective function, which decides based on the player's current score whether we should proceed to step 2 or step 3 (step 3 only if timer is 1)
+	A. (It's state 1) - We place a marker at the player's last placed block, and set the timer to 5
+	B. (It's state 2) - We place a second marker at the player's last placed block, rotate Marker 1 to face Marker 2, spawn the interaction entity to detect right clicks, and run 1/rise
+2. [INIT] We leapfrog the markers
+2. [TICK] in this function, we teleport the interaction entity to the player's head every tick and check to see if the player is still looking in the general vicinity of marker 1, if not, run state/break to end the loop
+2. [TICK] if they are looking directly at the marker entity, run 2/rise
+3. [TICK] if the player's score is 3 and they are NOT looking directly at the marker entity, run 3/fall
+3. [TICK] in this function, we teleport the interaction entity to the player's head every tick.
+3. [ADV] if the player interacts with the entity with an #all_blocks item in hand, we run our respective function which will check to see if the item matches the block on marker 1. If so, we call 3/rise
+4. [INIT] we use an item modifier to remove only 1 item from the player's mainhand, clone the blocks from Marker 1 forward 1 block, and run 4/fall, which takes us back to step 2.
+
+
+checking the items to see if they match
+in order to check the items to see if they match, we need to copy the item in the player's hand to storage, change the stack count to 1, then loot spawn the item for the block at marker 1, and data modify store success attempt to copy the data from the item to the same location in storage. If they match, we get a result of 0
+https://discord.com/channels/154777837382008833/1066868584292302900/1066869122677346374
